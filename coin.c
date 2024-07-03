@@ -2,7 +2,7 @@ git merge user_name
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>  // ここに <string.h> を追加
+#include <string.h> 
 #include <time.h>
 
 int main() {
