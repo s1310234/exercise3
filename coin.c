@@ -1,34 +1,46 @@
-git checkout -b user_name
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+char* tossCoin() {
+    return (rand() % 2 == 0) ? "Heads" : "Tails";
+}
 
 int main() {
-    char name[50];
-    printf("Who are you?\n> ");
-    fgets(name, sizeof(name), stdin);
-
-    printf("Hello, %s!\n", name);
-
     srand(time(NULL));
-    int heads = 0, tails = 0;
+
+    char user_name[100]; // ユーザー名を格納するための変数
+
+    printf("Who are you?\n> ");
+    fgets(user_name, sizeof(user_name), stdin);
+    user_name[strcspn(user_name, "\n")] = '\0';  // 改行文字を削除する
+
+    printf("Hello, %s!\n", user_name); // ユーザー名で挨拶する
 
     printf("Tossing a coin...\n");
 
-    for (int i = 1; i <= 3; i++) {
-        int toss = rand() % 2;
-        if (toss == 0) {
-            printf("Round %d: Heads\n", i);
-            heads++;
+    // コイン投げのシミュレーション
+    char* results[3];
+    int heads_count = 0, tails_count = 0;
+
+    for (int i = 0; i < 3; ++i) {
+        results[i] = tossCoin();
+        printf("Round %d: %s\n", i + 1, results[i]);
+        if (strcmp(results[i], "Heads") == 0) {
+            heads_count++;
         } else {
-            printf("Round %d: Tails\n", i);
-            tails++;
+            tails_count++;
         }
     }
 
-    printf("Heads: %d, Tails: %d\n", heads, tails);
+    printf("Heads: %d, Tails: %d\n", heads_count, tails_count);
+
+    if (heads_count > tails_count) {
+        printf("%s won!\n", user_name);
+    } else {
+        printf("%s lost!\n", user_name);
+    }
 
     return 0;
 }
-
