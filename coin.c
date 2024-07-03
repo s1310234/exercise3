@@ -1,46 +1,31 @@
-git merge user_name
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h> 
 #include <time.h>
+#include <string.h>
+
+char* tossCoin() {
+    return (rand() % 2 == 0) ? "Heads" : "Tails";
+}
 
 int main() {
-    char name[50];
-    printf("Who are you?\n> ");
-    fgets(name, sizeof(name), stdin);
-
-    // Remove newline character from the name
-    size_t len = strlen(name);
-    if (len > 0 && name[len - 1] == '\n') {
-        name[len - 1] = '\0';
-    }
-
-    printf("Hello, %s!\n", name);
-
     srand(time(NULL));
-    int heads = 0, tails = 0;
 
     printf("Tossing a coin...\n");
 
-    for (int i = 1; i <= 3; i++) {
-        int toss = rand() % 2;
-        if (toss == 0) {
-            printf("Round %d: Heads\n", i);
-            heads++;
+    char* results[3];
+    int heads_count = 0, tails_count = 0;
+
+    for (int i = 0; i < 3; ++i) {
+        results[i] = tossCoin();
+        printf("Round %d: %s\n", i + 1, results[i]);
+        if (strcmp(results[i], "Heads") == 0) {
+            heads_count++;
         } else {
-            printf("Round %d: Tails\n", i);
-            tails++;
+            tails_count++;
         }
     }
 
-    printf("Heads: %d, Tails: %d\n", heads, tails);
-
-    if (heads > tails) {
-        printf("%s won!\n", name);
-    } else {
-        printf("%s lost!\n", name);
-    }
+    printf("Heads: %d, Tails: %d\n", heads_count, tails_count);
 
     return 0;
 }
