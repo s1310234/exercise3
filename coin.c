@@ -1,3 +1,5 @@
+git checkout master
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -20,6 +22,12 @@ int main() {
     }
 
     printf("Heads: %d, Tails: %d\n", heads, tails);
+
+    if (heads > tails) {
+        printf("You won!\n");
+    } else {
+        printf("You lost!\n");
+    }
 
     return 0;
 }
